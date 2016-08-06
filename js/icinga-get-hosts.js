@@ -70,7 +70,7 @@ $(document).ready(function () {
       }
     });
 
-    showData.text('Loading the JSON file.');
+    showData.text('Loading data from a icinga2 server ...');
   });
 
 

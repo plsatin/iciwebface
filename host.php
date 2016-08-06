@@ -140,8 +140,8 @@ foreach ($obj2->results as $hservice) {
         echo "</td>";
     } else {
         echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span><strong>";
         echo "</td>";
     }
 
