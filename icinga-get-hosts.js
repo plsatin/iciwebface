@@ -8,16 +8,12 @@ $(document).ready(function () {
   $('#get-data').click(function () {
     var showData = $('#show-data');
 
-//Заменить на свое значение, если папка images в корне сайта тогда - ""
-//    var www_path = "/test/";
+
     var www_path = "";
     var json_url = 'icinga-proxy.php?domain=' + domainFilter.value;
 
     $.getJSON(json_url, function (data) {
       //console.log(data);
-        $.ajaxSetup({
-            headers: { 'Authorization': "Basic cm9vdDo2MjY1ODliNmJhMzk0ZDI3" }
-        });      
            
       var data0 = data.results;
       
@@ -32,7 +28,9 @@ $(document).ready(function () {
               
                 hostdown_bage = "<span class='mdl-badge mdl-badge--overlap' data-badge='!'>";
                 hostdown_bage_span = "</span>";
-                  
+
+                icon_image_src = item.attrs.icon_image.slice(0, -4) + "_gray.png";
+/*                  
                 if (item.attrs.icon_image == "/icingaweb2/img/my/computer_16.png") {
                     icon_image_src = "img/my/computer_16_gray.png";
                 }
@@ -54,7 +52,7 @@ $(document).ready(function () {
                 if (item.attrs.icon_image == "/icingaweb2/img/my/printer_16.png") {
                     icon_image_src = "img/my/printer_16_gray.png";
                 }
-              
+*/              
           } else {
               
               hostdown_bage = "";
@@ -93,7 +91,6 @@ $(document).ready(function () {
     showData.text('Loading the JSON file.');
   });
 
-// Тело
 
 $('#get-data').click();
 
