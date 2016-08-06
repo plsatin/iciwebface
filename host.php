@@ -1,4 +1,12 @@
 <?php
+/*********************************************************************
+iciwebface 
+Страница детальной информации о хосте
+Павел Сатин <pslater.ru@gmail.com>
+19.01.2016
+  
+**********************************************************************/
+
 require_once( "config.php" );
 
 if (!empty($_GET['host'])) {
@@ -72,9 +80,6 @@ try {
 
 <?php include ( "header.php" ) ?>
 
-      <div class="icinga2app-ribbon"></div>
-      <main class="icinga2app-main mdl-layout__content">
-        <div class="icinga2app-container mdl-grid">
             
        <div class="icinga2app-back">
           <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
@@ -129,9 +134,17 @@ echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width
 
 foreach ($obj2->results as $hservice) {
 
-    echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
-    echo $hservice->attrs->name;
-    echo "</td>";
+    if ($hservice->attrs->state == "0") {
+        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo $hservice->attrs->name;
+        echo "</td>";
+    } else {
+        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo $hservice->attrs->name;
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span><strong>";
+        echo "</td>";
+    }
+
     echo "<td class='mdl-data-table__cell--non-numeric'>";
     echo $hservice->attrs->state;
     echo "<td class='mdl-data-table__cell--non-numeric'>";

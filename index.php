@@ -1,8 +1,16 @@
-<?php include ( "header.php" ) ?>
+<?php
+/*********************************************************************
+iciwebface 
+Список всех хостов (стартовая страница)
+Павел Сатин <pslater.ru@gmail.com>
+19.01.2016
+  
+**********************************************************************/
 
-      <div class="icinga2app-ribbon"></div>
-      <main class="icinga2app-main mdl-layout__content">
-        <div class="icinga2app-container mdl-grid">
+include ( "header.php" );
+
+?>
+
           <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
 

@@ -1,6 +1,10 @@
-//////////////////////////////////////////////////////////////////
-//
-//
+/*********************************************************************
+iciwebface 
+Скрипт запроса через прокси данных с icinga2
+Павел Сатин <pslater.ru@gmail.com>
+19.01.2016
+  
+**********************************************************************/
 
 $(document).ready(function () {
 
@@ -30,29 +34,7 @@ $(document).ready(function () {
                 hostdown_bage_span = "</span>";
 
                 icon_image_src = item.attrs.icon_image.slice(0, -4) + "_gray.png";
-/*                  
-                if (item.attrs.icon_image == "/icingaweb2/img/my/computer_16.png") {
-                    icon_image_src = "img/my/computer_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/server_16.png") {
-                    icon_image_src = "img/my/server_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/soho-router_16.png") {
-                    icon_image_src = "img/my/soho-router_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/soho-box_16.png") {
-                    icon_image_src = "img/my/soho-box_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/videocam_16.png") {
-                    icon_image_src = "img/my/videocam_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/lamp_16.png") {
-                    icon_image_src = "img/my/lamp_16_gray.png";
-                }
-                if (item.attrs.icon_image == "/icingaweb2/img/my/printer_16.png") {
-                    icon_image_src = "img/my/printer_16_gray.png";
-                }
-*/              
+
           } else {
               
               hostdown_bage = "";
