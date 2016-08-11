@@ -19,6 +19,7 @@ iciwebface
     
     <script data-require="jquery@2.1.1" data-semver="1.9.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/icinga-get-hosts.js"></script>
+    <script src="js/icinga-check.js"></script>
     
     <link type="image/png" rel="shortcut icon" href="img/favicon.png">
 

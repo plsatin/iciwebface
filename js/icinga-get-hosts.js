@@ -78,4 +78,8 @@ $('#get-data').click();
 
 setInterval(function(){$('#get-data').click();},60*1000);
 
+
+
+
+
 });

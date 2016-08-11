@@ -91,6 +91,9 @@ try {
           <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
               
+                <button id="fab_checkhost" class="fab-check-host mdl-button mdl-shadow--4dp mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" data-upgraded=",MaterialButton,MaterialRipple" role="presentation">
+                    <i class="material-icons mdl-color-text--white" role="presentation">refresh</i>
+                </button>
              
             <div class="icinga2app-crumbs mdl-color-text--grey-500 mdl-cell--1-col">
                 <span>
@@ -105,10 +108,9 @@ try {
                             if ($obj->results[0]->attrs->state == "0") {
                                 echo "<table class='mdl-data-table' style='border: 0px; border-top: 0px; border-bottom: 0px'><tr><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<img src='" . $obj->results[0]->attrs->icon_image ."' />";
-                                echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'><strong>";
-                                echo $obj->results[0]->attrs->display_name;
-                                echo "</strong></td></tr></table>";
-                                
+                                echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
+                                echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
+                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
                             } else {
                                 
                                 $img_gray = substr($obj->results[0]->attrs->icon_image,0,-4) . "_gray.png";
@@ -116,10 +118,9 @@ try {
                                 echo "<table class='mdl-data-table' style='border: 0px; border-top: 0px; border-bottom: 0px'><tr><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<img src='" . $img_gray ."' />";
                                 echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
-                                echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span><strong>";
-                                echo $obj->results[0]->attrs->display_name;
-                                echo "</strong></td></tr></table>";
-                                
+                                //echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
+                                echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
+                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
                             }
                           ?>
                 
@@ -158,5 +159,7 @@ echo "</table>";
 
           </div>
         </div>
+
+
 
 <?php include ( "footer.php" ) ?>

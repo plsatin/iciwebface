@@ -61,3 +61,10 @@ iciwebface
   color: white;
   z-index: 9999;
 }
+
+.fab-check-host{
+  position: fixed;
+  bottom: 92px;     
+  right: 50px;
+  z-index:99;
+}
