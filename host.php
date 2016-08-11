@@ -131,30 +131,85 @@ try {
 <?php
 
 echo "<h4>Сервисы:</h4>";
+
 echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
 
 foreach ($obj2->results as $hservice) {
 
     if ($hservice->attrs->state == "0") {
+        //OK
         echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo $hservice->attrs->name;
+        echo "</td>";
+    } elseif ($hservice->attrs->state == "1") {
+        //WARNING
+        echo "<tr style='background-color: #FCF38D;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
+        echo $hservice->attrs->name;
+        echo "</td>";
+    } elseif ($hservice->attrs->state == "2") {
+        //CRITICAL
+        echo "<tr style='background-color: #FC8D8D;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
+        echo $hservice->attrs->name;
+        echo "</td>";
+    } elseif ($hservice->attrs->state == "3") {
+        //UNKNOWN
+        echo "<tr style='background-color: #D5BADE;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
         echo "</td>";
     } else {
         echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
         echo "</td>";
+
     }
 
     echo "<td class='mdl-data-table__cell--non-numeric'>";
     echo $hservice->attrs->state;
-    echo "<td class='mdl-data-table__cell--non-numeric'>";
+    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
     echo $hservice->attrs->last_check_result->output;
-    echo "</td></tr>";
+    echo "</small></td></tr>";
 
 }
 
-echo "</table>"; 
+echo "</table>";
+
+/*
+echo "<div class='mdl-grid'>";
+
+foreach ($obj2->results as $hservice) {
+
+    echo "<div class='mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--6-col-desktop'>";
+    echo "  <div class='mdl-card__title'>";
+
+    if ($hservice->attrs->state == "0") {
+            echo $hservice->attrs->name;
+    } else {
+        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
+        echo $hservice->attrs->name;
+    }
+
+    echo "  </div>";
+    echo "  <div class='mdl-card__media'>";
+
+    echo "  </div>";
+    echo "  <div class='mdl-card__supporting-text'>";
+        echo $hservice->attrs->last_check_result->output;
+    echo "  </div>";
+    echo "  <div class='mdl-card__actions'>";
+
+    echo "  </div>";
+    echo "</div>";
+
+    //echo "<td class='mdl-data-table__cell--non-numeric'>";
+    //echo $hservice->attrs->state;
+
+}
+
+echo "</div>";
+*/
 ?>
 
           </div>
