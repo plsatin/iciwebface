@@ -22,6 +22,10 @@ if (!empty($_GET['host'])) {
     $data_string = json_encode($data);
     //echo $data_string;                                                                                 
     $json_url = "https://".ICINGA2_HOST.":5665/v1/actions/reschedule-check";
+} elseif (!empty($_GET['node'])) {
+    $puppet_node = trim($_GET['node']);
+    $json_url = "http://".ICINGA2_HOST."/puppet-node.php?host=".$puppet_node; 
+
 } else {
     $json_url = "https://".ICINGA2_HOST.":5665/v1/objects/hosts";
 }
@@ -39,12 +43,18 @@ if (!empty($_GET['host'])) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             }
+
             curl_setopt($ch, CURLOPT_URL, $json_url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
+            if ($puppet_node) {
+
+            } else {
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            }
             $content = curl_exec($ch);
             echo $content;
 

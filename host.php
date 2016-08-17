@@ -11,7 +11,7 @@ require_once( "config.php" );
 
 if (!empty($_GET['host'])) {
     $host = trim($_GET['host']); 
-    $json_url = "https://".ICINGA2_HOST.":5665/v1/objects/hosts/".$host."/";
+    $url_host = "https://".ICINGA2_HOST.":5665/v1/objects/hosts/".$host."/";
 
 try {
     $ch = curl_init();
@@ -19,16 +19,16 @@ try {
     if (FALSE === $ch)
         throw new Exception('failed to initialize');
 
-    curl_setopt($ch, CURLOPT_URL, $json_url);
+    curl_setopt($ch, CURLOPT_URL, $url_host);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 
-    $content = curl_exec($ch);
+    $output_host = curl_exec($ch);
 
-    if (FALSE === $content)
+    if (FALSE === $output_host)
         throw new Exception(curl_error($ch), curl_errno($ch));
 
 } catch(Exception $e) {
@@ -40,7 +40,7 @@ try {
 
 }
 
-    $json_url2 = "https://".ICINGA2_HOST.":5665/v1/objects/services?filter=match(%22".$host."%22,host.name)";
+    $url_services = "https://".ICINGA2_HOST.":5665/v1/objects/services?filter=match(%22".$host."%22,host.name)";
 
 try {
     $ch = curl_init();
@@ -48,17 +48,17 @@ try {
     if (FALSE === $ch)
         throw new Exception('failed to initialize');
 
-    curl_setopt($ch, CURLOPT_URL, $json_url2);
+    curl_setopt($ch, CURLOPT_URL, $url_services);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 
-    $content2 = curl_exec($ch);
+    $output_services = curl_exec($ch);
 
 
-    if (FALSE === $content2)
+    if (FALSE === $output_services)
         throw new Exception(curl_error($ch), curl_errno($ch));
 
 } catch(Exception $e) {
@@ -70,11 +70,37 @@ try {
 
 }
 
+    $url_puppet = "http://".ICINGA2_HOST."/puppet-node.php?host=".$host;
+
+try {
+    $ch = curl_init();
+
+    if (FALSE === $ch)
+        throw new Exception('failed to initialize');
+
+    curl_setopt($ch, CURLOPT_URL, $url_puppet);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $output_puppet = curl_exec($ch);
+
+
+    if (FALSE === $output_puppet)
+        throw new Exception(curl_error($ch), curl_errno($ch));
+
+} catch(Exception $e) {
+    trigger_error(sprintf(
+        'Curl failed with error #%d: %s',
+        $e->getCode(), $e->getMessage()),
+        E_USER_ERROR);
 }
 
-    $obj=json_decode($content);
-    $obj2=json_decode($content2);
+
+
+    $obj=json_decode($output_host);
+    $obj_services=json_decode($output_services);
+    $obj_puppet=json_decode($output_puppet);
     $graphite_name = str_replace('-', '_', str_replace('.', '_', $obj->results[0]->attrs->display_name));
+}
 
 ?>
 
@@ -130,11 +156,30 @@ try {
 
 <?php
 
-echo "<h4>Сервисы:</h4>";
 
+echo "<h4>Характеристики:</h4>";
 echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
 
-foreach ($obj2->results as $hservice) {
+
+    echo "<td class='mdl-data-table__cell--non-numeric'>";
+    echo "Операционная система: ";
+    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
+    echo $obj_puppet->parameters->osfamily . " " . $obj_puppet->parameters->operatingsystemmajrelease ;
+    echo "</small></td></tr>";
+    echo "<td class='mdl-data-table__cell--non-numeric'>";
+    echo "Процессор: ";
+    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
+    echo $obj_puppet->parameters->processor0;
+    echo "</small></td></tr>";
+
+
+echo "</table>";
+
+
+echo "<h4>Сервисы:</h4>";
+echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
+
+foreach ($obj_services->results as $hservice) {
 
     if ($hservice->attrs->state == "0") {
         //OK
@@ -179,7 +224,7 @@ echo "</table>";
 /*
 echo "<div class='mdl-grid'>";
 
-foreach ($obj2->results as $hservice) {
+foreach ($obj_services->results as $hservice) {
 
     echo "<div class='mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--6-col-desktop'>";
     echo "  <div class='mdl-card__title'>";
