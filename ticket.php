@@ -106,6 +106,8 @@ try {
 
 <?php include ( "header.php" ) ?>
 
+    <script src="js/open-ticket.js"></script>
+
             
        <div class="icinga2app-back">
           <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
@@ -116,7 +118,7 @@ try {
             
           <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
-
+              
              
             <div class="icinga2app-crumbs mdl-color-text--grey-500 mdl-cell--1-col">
                 <span>
@@ -150,117 +152,38 @@ try {
             </div>            
 
 <br />
+        <div class="mdl-card__title mdl-card--expand">
+            <h1 class="mdl-card__title-text">Создать обращение</h1>
+        </div>
+        <div class="mdl-card__supporting-text" style="width: initial;">
 
-<?php
-
-
-echo "<h4>Характеристики:</h4>";
-echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
-
-
-    echo "<td class='mdl-data-table__cell--non-numeric'>";
-    echo "Операционная система: ";
-    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
-    echo $obj_puppet->parameters->osfamily . " " . $obj_puppet->parameters->operatingsystemmajrelease ;
-    echo "</small></td></tr>";
-    echo "<td class='mdl-data-table__cell--non-numeric'>";
-    echo "Процессор: ";
-    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
-    echo $obj_puppet->parameters->processor0;
-    echo "</small></td></tr>";
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
+            <label class="mdl-textfield__label" for="exitstatus">Приоритет</label>
+            <select class="mdl-textfield__input" name="exitstatus" id="exitstatus">
+              <option value="0" >OK</option>
+              <option value="1" >Warning</option>
+              <option value="2" selected >Critical</option>
+            </select>
+          </div>
 
 
-echo "</table>";
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
+      		    <label class="mdl-textfield__label" for="host" required>Имя хоста<span class="required">*</span></label>
+      		    <input class="mdl-textfield__input" name="host" type="text" id="host" size="35" value="<?php echo $obj->results[0]->attrs->display_name ?>" />
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
+                <label class="mdl-textfield__label"  for="message" required>Сообщение <span class="required">*</span></label>
+                <textarea class="mdl-textfield__input" name="message"  id="message" rows="5"></textarea>
+            </div>
+            <div class"mdl-card__actions mdl-card--border">
+                <button id="open_ticket" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Отправить</button>
+            </div>
+        </div>
 
-
-echo "<h4>Сервисы:</h4>";
-echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
-
-foreach ($obj_services->results as $hservice) {
-
-    if ($hservice->attrs->state == "0") {
-        //OK
-        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
-        echo $hservice->attrs->name;
-        echo "</td>";
-    } elseif ($hservice->attrs->state == "1") {
-        //WARNING
-        echo "<tr style='background-color: #FCF38D;'><td class='mdl-data-table__cell--non-numeric'>";
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
-        echo $hservice->attrs->name;
-        echo "</td>";
-    } elseif ($hservice->attrs->state == "2") {
-        //CRITICAL
-        echo "<tr style='background-color: #FC8D8D;'><td class='mdl-data-table__cell--non-numeric'>";
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
-        echo $hservice->attrs->name;
-        echo "</td>";
-    } elseif ($hservice->attrs->state == "3") {
-        //UNKNOWN
-        echo "<tr style='background-color: #D5BADE;'><td class='mdl-data-table__cell--non-numeric'>";
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
-        echo $hservice->attrs->name;
-        echo "</td>";
-    } else {
-        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
-        echo $hservice->attrs->name;
-        echo "</td>";
-
-    }
-
-    echo "<td class='mdl-data-table__cell--non-numeric'>";
-    echo $hservice->attrs->state;
-    echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
-    echo $hservice->attrs->last_check_result->output;
-    echo "</small></td></tr>";
-
-}
-
-echo "</table>";
-
-/*
-echo "<div class='mdl-grid'>";
-
-foreach ($obj_services->results as $hservice) {
-
-    echo "<div class='mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--6-col-desktop'>";
-    echo "  <div class='mdl-card__title'>";
-
-    if ($hservice->attrs->state == "0") {
-            echo $hservice->attrs->name;
-    } else {
-        echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
-        echo $hservice->attrs->name;
-    }
-
-    echo "  </div>";
-    echo "  <div class='mdl-card__media'>";
-
-    echo "  </div>";
-    echo "  <div class='mdl-card__supporting-text'>";
-        echo $hservice->attrs->last_check_result->output;
-    echo "  </div>";
-    echo "  <div class='mdl-card__actions'>";
-
-    echo "  </div>";
-    echo "</div>";
-
-    //echo "<td class='mdl-data-table__cell--non-numeric'>";
-    //echo $hservice->attrs->state;
-
-}
-
-echo "</div>";
-*/
-?>
 
           </div>
         </div>
 
-                <button id="fab_checkhost" class="fab-check-host mdl-button mdl-shadow--4dp mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" data-upgraded=",MaterialButton,MaterialRipple" role="presentation">
-                    <i class="material-icons mdl-color-text--white" role="presentation">refresh</i>
-                </button>
-              
 
 
 <?php include ( "footer.php" ) ?>

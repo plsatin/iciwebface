@@ -10,31 +10,23 @@ $(document).ready(function () {
 
 //Обработка нажатия 
   $('#fab_checkhost').click(function () {
-    //var showData = $('#show-data');
-    var dataJson;
-    var snackbarContainer = document.querySelector('#host-snackbar');
+    var showData = $('#show-data');
 
     var json_url = 'icinga-proxy.php?checkhost=' + checkhost.value;
-    //console.log(json_url);
+    console.log(json_url);
     $.getJSON(json_url, function (data) {
-    
-    dataJson = data.results;
-
-///////////////////////////
-    //console.log(dataJson);
-      'use strict';
-    
-      var data = {
-        message: dataJson[0].status,
-        timeout: 10000,
-      };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-//////////////////////////////
+      //console.log(data);
+      //showData.text(data);    
+      var data0 = data.results;
+      //console.log(data0);
+      showData.text(data0[0].status);
 
       setTimeout(function () { location.reload(1); }, 5000);
 
     });
 
   });
+
+
 
 });

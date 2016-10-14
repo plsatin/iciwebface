@@ -9,6 +9,11 @@ ver. 0.3.1
 
 require_once( "config.php" );
 
+$username = ICINGA2_USR;
+$password = ICINGA2_PSW;
+
+$data_string = false;
+$puppet_node = false;
 
 if (!empty($_GET['host'])) {
     $host = trim($_GET['host']); 
@@ -25,6 +30,17 @@ if (!empty($_GET['host'])) {
 } elseif (!empty($_GET['node'])) {
     $puppet_node = trim($_GET['node']);
     $json_url = "http://".ICINGA2_HOST."/puppet-node.php?host=".$puppet_node; 
+
+} elseif (!empty($_GET['supporthost'])) {
+    $support_host = trim($_GET['supporthost']);
+    $message =  trim($_GET['message']);
+    $exitstatus =  (int) $_GET['exitstatus'];
+    $json_url = "https://".ICINGA2_HOST.":5665/v1/actions/process-check-result?service=". $support_host ."!support-ticket"; 
+    $data = array("exit_status" => $exitstatus, "plugin_output" => "". $message."");                                                                    
+    $data_string = json_encode($data);
+
+    //echo $data_string;
+    //echo $json_url;
 
 } else {
     $json_url = "https://".ICINGA2_HOST.":5665/v1/objects/hosts";

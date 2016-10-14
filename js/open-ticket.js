@@ -1,20 +1,20 @@
 /*********************************************************************
 iciwebface 
-Скрипт запроса через прокси данных с icinga2
+Скрипт запроса отправки оповещения об открытом тикете в icinga2
 Павел Сатин <pslater.ru@gmail.com>
-19.01.2016
+12.10.2016
   
 **********************************************************************/
 
 $(document).ready(function () {
 
 //Обработка нажатия 
-  $('#fab_checkhost').click(function () {
+  $('#open_ticket').click(function () {
     //var showData = $('#show-data');
     var dataJson;
     var snackbarContainer = document.querySelector('#host-snackbar');
 
-    var json_url = 'icinga-proxy.php?checkhost=' + checkhost.value;
+    var json_url = 'icinga-proxy.php?supporthost='+ host.value + '&exitstatus=' + exitstatus.value + '&message=' + message.value;
     //console.log(json_url);
     $.getJSON(json_url, function (data) {
     
@@ -31,7 +31,6 @@ $(document).ready(function () {
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
 //////////////////////////////
 
-      setTimeout(function () { location.reload(1); }, 5000);
 
     });
 
