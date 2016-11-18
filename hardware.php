@@ -101,7 +101,7 @@ $r_Win32_DiskDrive = mysql_query($q_Win32_DiskDrive)  or die(mysql_error());
 
 
        <div class="icinga2app-back">
-          <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
+          <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="hreport1.php" title="go back" role="button">
             <i class="material-icons" role="presentation">arrow_back</i>
           </a>
        </div>
@@ -117,8 +117,6 @@ $r_Win32_DiskDrive = mysql_query($q_Win32_DiskDrive)  or die(mysql_error());
 <br />
 
 <div style="width: 100%;">
-
-</style>
 
 <?php
 /*
