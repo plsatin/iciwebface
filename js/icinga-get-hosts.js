@@ -32,9 +32,11 @@ $(document).ready(function () {
               
                 hostdown_bage = "<span class='mdl-badge mdl-badge--overlap' data-badge='!'>";
                 hostdown_bage_span = "</span>";
-
-                icon_image_src = item.attrs.icon_image.slice(0, -4) + "_gray.png";
-
+                if(item.attrs.icon_image.indexOf('_gray.png') + 1) {
+                
+                } else {
+                  icon_image_src = item.attrs.icon_image.slice(0, -4) + "_gray.png";
+                }
           } else {
               
               hostdown_bage = "";

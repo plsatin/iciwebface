@@ -113,6 +113,11 @@ try {
           </a>
        </div>
 
+<!--
+                <button id="fab_checkhost" class="fab-check-host mdl-button mdl-shadow--4dp mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" data-upgraded=",MaterialButton,MaterialRipple" role="presentation">
+                    <i class="material-icons mdl-color-text--white" role="presentation">refresh</i>
+                </button>
+-->
             
           <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
@@ -136,7 +141,11 @@ try {
                                 echo "<small><div id='show-data' /></small></td></tr></table>";                                
                             } else {
                                 
-                                $img_gray = substr($obj->results[0]->attrs->icon_image,0,-4) . "_gray.png";
+                                if (strpos($obj->results[0]->attrs->icon_image, "_gray.png")) {
+                                    $img_gray = $obj->results[0]->attrs->icon_image;
+                                } else {
+                                    $img_gray = substr($obj->results[0]->attrs->icon_image,0,-4) . "_gray.png";
+                                }
                                 
                                 echo "<table class='mdl-data-table' style='border: 0px; border-top: 0px; border-bottom: 0px'><tr><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<img src='" . $img_gray ."' />";
@@ -174,42 +183,42 @@ echo "</table>";
 
 
 echo "<h4>Сервисы:</h4>";
-echo "<table class='mdl-data-table mdl-js-data-table' style='margin: auto; width: 100%'>";
+echo "<table class='mdl-data-table mdl-js-data-table' style='width: 100%; white-space: normal;'>";
 
 foreach ($obj_services->results as $hservice) {
 
     if ($hservice->attrs->state == "0") {
         //OK
-        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<tr style='background-color: gray;'><td class='mdl-data-table__cell--non-numeric' colspan='2'>";
         echo $hservice->attrs->name;
-        echo "</td>";
+        echo "</td></tr>";
     } elseif ($hservice->attrs->state == "1") {
         //WARNING
-        echo "<tr style='background-color: #FCF38D;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<tr style='background-color: #FCF38D;'><td class='mdl-data-table__cell--non-numeric' colspan='2'>";
         echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
-        echo "</td>";
+        echo "</td></tr>";
     } elseif ($hservice->attrs->state == "2") {
         //CRITICAL
-        echo "<tr style='background-color: #FC8D8D;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<tr style='background-color: #FC8D8D;'><td class='mdl-data-table__cell--non-numeric' colspan='2'>";
         echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
-        echo "</td>";
+        echo "</td></tr>";
     } elseif ($hservice->attrs->state == "3") {
         //UNKNOWN
-        echo "<tr style='background-color: #D5BADE;'><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<tr style='background-color: #D5BADE;'><td class='mdl-data-table__cell--non-numeric' colspan='2'>";
         echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
         echo $hservice->attrs->name;
-        echo "</td>";
+        echo "</td></tr>";
     } else {
-        echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+        echo "<tr style='background-color: gray;'><td class='mdl-data-table__cell--non-numeric' colspan='2'>";
         echo $hservice->attrs->name;
-        echo "</td>";
+        echo "</td></tr>";
 
     }
 
-    echo "<td class='mdl-data-table__cell--non-numeric'>";
-    echo $hservice->attrs->state;
+    echo "<tr><td class='mdl-data-table__cell--non-numeric'>";
+    //echo $hservice->attrs->state;
     echo "</td><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word'><small>";
     echo $hservice->attrs->last_check_result->output;
     echo "</small></td></tr>";
@@ -257,10 +266,22 @@ echo "</div>";
           </div>
         </div>
 
-                <button id="fab_checkhost" class="fab-check-host mdl-button mdl-shadow--4dp mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" data-upgraded=",MaterialButton,MaterialRipple" role="presentation">
-                    <i class="material-icons mdl-color-text--white" role="presentation">refresh</i>
-                </button>
               
+
+
+
+
+<style>
+/* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
+.mdl-layout__content {
+    display: -webkit-flex;
+	display: flex;
+    -webkit-flex-direction: column;
+	        flex-direction: column;
+}
+</style>
+
+<div class="mdl-layout-spacer"></div>
 
 
 <?php include ( "footer.php" ) ?>

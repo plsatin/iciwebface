@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************
 iciwebface 
-Страница детальной информации о хосте
+Страница создания обращения
 Павел Сатин <pslater.ru@gmail.com>
 19.01.2016
   
@@ -128,8 +128,10 @@ try {
             
             <div class="mdl-layout__header-row" style="padding: 0 0 0 0; border-bottom: 1px solid; border-color: rgba(0,0,0,0.1);">
                 
-                          <?php
+                    <?php
                             
+                        if (!empty($_GET['host'])) {
+
                             if ($obj->results[0]->attrs->state == "0") {
                                 echo "<table class='mdl-data-table' style='border: 0px; border-top: 0px; border-bottom: 0px'><tr><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<img src='" . $obj->results[0]->attrs->icon_image ."' />";
@@ -147,7 +149,9 @@ try {
                                 echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
                                 echo "<small><div id='show-data' /></small></td></tr></table>";                                
                             }
-                          ?>
+
+                        }
+                    ?>
                 
             </div>            
 
@@ -185,5 +189,21 @@ try {
         </div>
 
 
+
+
+
+
+
+<style>
+/* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
+.mdl-layout__content {
+    display: -webkit-flex;
+	display: flex;
+    -webkit-flex-direction: column;
+	        flex-direction: column;
+}
+</style>
+
+<div class="mdl-layout-spacer"></div>
 
 <?php include ( "footer.php" ) ?>

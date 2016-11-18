@@ -7,9 +7,9 @@ iciwebface
   
 **********************************************************************/
 
-//define('ICINGA2_HOST', '78.24.216.120');
-//$username = "root";
-//$password = "626589b6ba394d27";
+define('ICINGA2_HOST', '78.24.216.120');
+$username = "root";
+$password = "626589b6ba394d27";
 
 
 
