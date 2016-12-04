@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 //Обработка нажатия 
   $('#open_ticket').click(function () {
-    //var showData = $('#show-data');
+
     var dataJson;
     var snackbarContainer = document.querySelector('#host-snackbar');
 

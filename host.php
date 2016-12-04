@@ -99,7 +99,7 @@ try {
     $obj=json_decode($output_host);
     $obj_services=json_decode($output_services);
     $obj_puppet=json_decode($output_puppet);
-    $graphite_name = str_replace('-', '_', str_replace('.', '_', $obj->results[0]->attrs->display_name));
+    //$graphite_name = str_replace('-', '_', str_replace('.', '_', $obj->results[0]->attrs->display_name));
 }
 
 ?>
@@ -107,27 +107,18 @@ try {
 <?php include ( "header.php" ) ?>
 
             
-       <div class="icinga2app-back">
-          <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
-            <i class="material-icons" role="presentation">arrow_back</i>
-          </a>
-       </div>
 
-<!--
+
                 <button id="fab_checkhost" class="fab-check-host mdl-button mdl-shadow--4dp mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" data-upgraded=",MaterialButton,MaterialRipple" role="presentation">
                     <i class="material-icons mdl-color-text--white" role="presentation">refresh</i>
                 </button>
--->
+
             
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
+<section class="mdl-color--white mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
 
              
-            <div class="icinga2app-crumbs mdl-color-text--grey-500 mdl-cell--1-col">
-                <span>
-                    
-                </span>
-            </div>
             
             <div class="mdl-layout__header-row" style="padding: 0 0 0 0; border-bottom: 1px solid; border-color: rgba(0,0,0,0.1);">
                 
@@ -138,7 +129,7 @@ try {
                                 echo "<img src='" . $obj->results[0]->attrs->icon_image ."' />";
                                 echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
-                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
+                                echo "<small><div id='show-data-host' /></small></td></tr></table>";                                
                             } else {
                                 
                                 if (strpos($obj->results[0]->attrs->icon_image, "_gray.png")) {
@@ -152,7 +143,7 @@ try {
                                 echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 //echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
                                 echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
-                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
+                                echo "<small><div id='show-data-host' /></small></td></tr></table>";                                
                             }
                           ?>
                 
@@ -263,25 +254,13 @@ echo "</div>";
 */
 ?>
 
-          </div>
-        </div>
-
               
+    </div>
+</section>
 
 
 
 
-<style>
-/* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
-.mdl-layout__content {
-    display: -webkit-flex;
-	display: flex;
-    -webkit-flex-direction: column;
-	        flex-direction: column;
-}
-</style>
-
-<div class="mdl-layout-spacer"></div>
 
 
 <?php include ( "footer.php" ) ?>

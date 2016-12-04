@@ -50,46 +50,10 @@ iciwebface
 
   </head>
   <body>
+    <div class="icinga2app-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100 mdl-layout--overlay-drawer-button">
 
 
-
-<div class="iciweb-layout-waterfall mdl-layout mdl-js-layout">
-  <header class="iciweb-header mdl-layout__header mdl-layout__header--waterfall">
-    <!-- Top row, always visible -->
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">Icinga2</span>
-      <div class="mdl-layout-spacer"></div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                  mdl-textfield--floating-label mdl-textfield--align-right">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="mainSearch" id="get-data-main">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" id="mainSearch" name="mainSearch">
-          <!--<label class="mdl-textfield__label" for="mainSearch">Enter your query...</label>-->
-        </div>
-      </div>
-    </div>
-    <!-- Bottom row, not visible on scroll -->
-    <div class="mdl-layout__header-row">
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation -->
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="index.php">Главная</a>
-        <a class="mdl-navigation__link" href="hreport1.php">Отчет</a>
-        <a class="mdl-navigation__link" href="ticket.php">Тикет</a>
-      </nav>
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title iciweb-header">Icinga2</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="index.php">Главная</a>
-      <a class="mdl-navigation__link" href="hreport1.php">Отчет</a>
-      <a class="mdl-navigation__link" href="ticket.php">Тикет</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-
+      <div class="icinga2app-ribbon"></div>
+      <main class="icinga2app-main mdl-layout__content">
+        <div class="icinga2app-container mdl-grid">
 

@@ -11,13 +11,8 @@ include ( "header.php" );
 
 ?>
 
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
 
-      <div class="mdl-layout__header-row">
-        <h3>Мониторинг</h3>     
-      </div>
-        <div class="mdl-layout__header-row"> 
+       <div class="mdl-layout__header-row"> 
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="domainFilter" id="get-data">
@@ -30,14 +25,19 @@ include ( "header.php" );
           </div>   
        </div>
 
-<br />
 
-          <div class="mdl-cell mdl-cell--12-col">
-            <div id="show-data"></div>
-          </div>
+<section class="mdl-color--white mdl-grid">
+
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+
+        <h3>Мониторинг</h3>     
 
 
-          </div>
-        </div>
+        <div id="show-data"></div>
+
+    </div>
+</section>
+
 
 <?php include ( "footer.php" ) ?>

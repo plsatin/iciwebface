@@ -109,25 +109,13 @@ try {
     <script src="js/open-ticket.js"></script>
 
             
-       <div class="icinga2app-back">
-          <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
-            <i class="material-icons" role="presentation">arrow_back</i>
-          </a>
-       </div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+    </div>
 
+    <div class="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--4dp">
             
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
-              
-             
-            <div class="icinga2app-crumbs mdl-color-text--grey-500 mdl-cell--1-col">
-                <span>
-                    
-                </span>
-            </div>
-            
-            <div class="mdl-layout__header-row" style="padding: 0 0 0 0; border-bottom: 1px solid; border-color: rgba(0,0,0,0.1);">
-                
+        <div class="mdl-card__supporting-text">   
                     <?php
                             
                         if (!empty($_GET['host'])) {
@@ -137,7 +125,7 @@ try {
                                 echo "<img src='" . $obj->results[0]->attrs->icon_image ."' />";
                                 echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
-                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
+                                echo "<small><div id='show-data-host' /></small></td></tr></table>";                                
                             } else {
                                 
                                 $img_gray = substr($obj->results[0]->attrs->icon_image,0,-4) . "_gray.png";
@@ -147,28 +135,27 @@ try {
                                 echo "</td><td style='border: 0px; border-top: 0px; border-bottom: 0px'>";
                                 //echo "<span class='mdl-badge mdl-badge--overlap' data-badge='!'></span>";
                                 echo "<input readonly class='mdl-textfield__input' type='text' name='checkhost' id='checkhost' value='". $obj->results[0]->attrs->display_name . "' />";
-                                echo "<small><div id='show-data' /></small></td></tr></table>";                                
+                                echo "<small><div id='show-data-host' /></small></td></tr></table>";                                
                             }
 
                         }
                     ?>
-                
-            </div>            
+        </div> 
 
-<br />
+
         <div class="mdl-card__title mdl-card--expand">
             <h1 class="mdl-card__title-text">Создать обращение</h1>
         </div>
-        <div class="mdl-card__supporting-text" style="width: initial;">
+        <div class="mdl-card__supporting-text" style="margin: auto; padding-right: 0; padding-left: 0;">
 
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
-            <label class="mdl-textfield__label" for="exitstatus">Приоритет</label>
-            <select class="mdl-textfield__input" name="exitstatus" id="exitstatus">
-              <option value="0" >OK</option>
-              <option value="1" >Warning</option>
-              <option value="2" selected >Critical</option>
-            </select>
-          </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
+                <label class="mdl-textfield__label" for="exitstatus">Приоритет</label>
+                <select class="mdl-textfield__input" name="exitstatus" id="exitstatus">
+                    <option value="0" >OK</option>
+                    <option value="1" >Warning</option>
+                    <option value="2" selected >Critical</option>
+                </select>
+            </div>
 
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%">
@@ -179,21 +166,18 @@ try {
                 <label class="mdl-textfield__label"  for="message" required>Сообщение <span class="required">*</span></label>
                 <textarea class="mdl-textfield__input" name="message"  id="message" rows="5"></textarea>
             </div>
-            <div class"mdl-card__actions mdl-card--border">
-                <button id="open_ticket" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Отправить</button>
-            </div>
         </div>
-
-
-          </div>
+        
+        <div class="mdl-card__actions mdl-card--border">
+            <button id="open_ticket" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Отправить</button>
         </div>
+    
+    </div>
 
 
+</div>
 
-
-
-
-
+<!--
 <style>
 /* Change the layout__content class to Flex (instead of inline-block) to allow spacer to work. */
 .mdl-layout__content {
@@ -205,5 +189,5 @@ try {
 </style>
 
 <div class="mdl-layout-spacer"></div>
-
+-->
 <?php include ( "footer.php" ) ?>

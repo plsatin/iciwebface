@@ -24,6 +24,9 @@ MAX(IF(PropertyID=4,Value, NULL)) AS CPU,
 MAX(IF(PropertyID=3,Value, NULL)) AS CPUSpeed,
 MAX(IF(PropertyID=106,Value, NULL)) AS RAMCapacity,
 MAX(IF(PropertyID=107,Value, NULL)) AS RAMSpeed,
+MAX(IF((PropertyID=26 AND Value NOT Like '%USB%'),Value, NULL)) AS HDD,
+MAX(IF((PropertyID=31 AND Value > 33000000000),Value, NULL)) AS HDDSize,
+MAX(IF((PropertyID=62 AND (Value Like '%Realtek%' OR Value Like '%Atheros%' OR Value Like '%Marvell%' OR Value Like '%NVIDIA%')),Value, NULL)) AS Net,
 MAX(IF(PropertyID=74,Value, NULL)) AS Video,
 MAX(IF(PropertyID=75,Value, NULL)) AS VideoRAM,
 MAX(IF(PropertyID=71,Value, NULL)) AS Sound
@@ -40,23 +43,10 @@ $r_report = mysql_query($q_report)  or die(mysql_error());
     <link rel="stylesheet" href="css/accordion.css">
 
 
-       <div class="icinga2app-back">
-          <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="index.php" title="go back" role="button">
-            <i class="material-icons" role="presentation">arrow_back</i>
-          </a>
-       </div>
 
-
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="icinga2app-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
-
-      <div class="mdl-layout__header-row">
-        <h3>Отчет об аппаратных характеристиках</h3>     
-      </div>
-
-<br />
-
-<div style="width: 100%;">
+<section class="mdl-color--white mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+            <h3>Отчет об аппаратных характеристиках</h3>     
 
 <?php
 
@@ -70,6 +60,9 @@ echo "<thead>
 <th>Clock</th>
 <th>RAM</th>
 <th>Speed</th>
+<th class='mdl-data-table__cell--non-numeric'>HDD</th>
+<th>Size</th>
+<th class='mdl-data-table__cell--non-numeric'>Net</th>
 <th class='mdl-data-table__cell--non-numeric'>Video</th>
 <th>VRAM</th>
 <th class='mdl-data-table__cell--non-numeric'>Sound</th>
@@ -92,6 +85,12 @@ while($row = mysql_fetch_array($r_report)) {
     <td>
     <small>".$row['RAMSpeed']."</small></td>
     <td class='mdl-data-table__cell--non-numeric'>
+    <small>".$row['HDD']."</small></td>
+    <td>
+    <small>".round($row['HDDSize']/1024/1024/1024, 2)."</small></td>
+    <td class='mdl-data-table__cell--non-numeric'>
+    <small>".$row['Net']."</small></td>
+    <td class='mdl-data-table__cell--non-numeric'>
     <small>".$row['Video']."</small></td>
     <td>
     <small>".str_replace('.',',', round($row['VideoRAM']/1024/1024/1024, 2))."</small></td>
@@ -102,16 +101,9 @@ while($row = mysql_fetch_array($r_report)) {
 }
 echo "</table>";
 ###########################################################################
-
 ?>
-
-</div>
-
-
-          </div>
-        </div>
-
-
+  </div>
+</section>
 
 <?php
 include ( "footer.php" );
