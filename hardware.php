@@ -76,28 +76,6 @@ $r_Win32_VideoController = GetSQLWin32Class($str_q, '13');
 
 <div style="width: 100%;">
 
-<?php
-/*
-#############################################################################
-echo "<table class='mdl-data-table mdl-js-data-table' style='width: 100%; white-space: normal;'>";
-while($row = mysql_fetch_array($result)) {
-
-if ($row['ClassName'] == $ClassName) {
-
-} else {
-    echo "<tr><td class='mdl-data-table__cell--non-numeric' colspan='3'><b>".$row['ClassName']."</b></td></tr>";
-
-}
-    echo "<tr><td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word; word-break: break-all;'><small>".$row['PropertyName']."</small></td>
-    <td class='mdl-data-table__cell--non-numeric' style='word-wrap: break-word; word-break: break-all;'><small>".$row['Value']."</small></td>
-    <td><small>".$row['InstanceId']."</small></td></tr>";
-    $ClassName = $row['ClassName'];
-
-}
-echo "</table>";
-###########################################################################
-*/
-?>
 
 <?php
 
